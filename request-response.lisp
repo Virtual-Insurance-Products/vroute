@@ -77,12 +77,14 @@
 (defmethod send-response-for-request ((e endpoint) req (response null))
   (send-response-for-request e req (make-instance 'no-content)))
 
+
 (defmethod handle-request ((e endpoint))
   (let ((response (handler-case
                       (respond e (endpoint-method e) (agent-for-endpoint e))
                     (error (c)
                       ;; (break)
                       ;; !!! It might be better /not/ to send the error message
+                      ;; (and make a condition which is supposed to be user visible)
                       (make-instance 'error-response
                                      :body "Unknown error occured"
                                      ;; (format nil "~A" c)
