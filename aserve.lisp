@@ -13,6 +13,7 @@
   (make-instance endpoint
                  :request request
                  :extra extra
+                 :prefix prefix
                  :uri (subseq (format nil "~A" (net.aserve:request-raw-uri request))
                               (length prefix))
                  :method (net.aserve:request-method request)

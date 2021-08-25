@@ -10,6 +10,7 @@
   ((request :reader endpoint-request :initarg :request)
    (extra :reader endpoint-extra :initarg :extra)
    (uri :reader endpoint-uri :initarg :uri)
+   (prefix :reader prefix :initarg :prefix)
    (method :reader endpoint-method :initarg :method)
    ;; (uri-pattern)
    (param-function :initarg :param-function :reader param-function)
