@@ -88,7 +88,14 @@
   (funcall (header-function e) name))
 
 (defmethod body ((e endpoint))
-  (funcall (body-function e)))
+  (let ((content-type (header e :content-type)))
+    (cond ((equal content-type "application/json")
+           (json:decode-json-from-string
+            (funcall (body-function e))))
+          ;; do others...
+          ;; form urlencoded would be an obvious one. We could do XML too
+          ;; we could potentially make the API functions work with a variety of things if they're compatible
+          (t (funcall (body-function e))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; 

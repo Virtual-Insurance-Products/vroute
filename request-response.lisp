@@ -12,7 +12,11 @@
 (defmethod additional-headers ((r response)) nil)
 
 (defmethod write-response-body-to-stream ((r response) (s stream))
-  (write-sequence (body r) s))
+  (when (body r)
+    (cond ((equal (content-type r) "application/json")
+           (write-sequence (json:encode-json-to-string (body r)) s))
+          (t (write-sequence (body r) s)))))
+
 
 (defclass error-response (response)
   ((code :initform 400)))
