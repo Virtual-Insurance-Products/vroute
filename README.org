@@ -1,4 +1,4 @@
-#+TITLE: Virtual Insurance Product HTTP Routing Library
+#+TITLE: VIP's HTTP Routing Library
 
 * Introduction
 
