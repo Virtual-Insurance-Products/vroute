@@ -5,3 +5,4 @@
 This is a simple routing library which looks up routes from subclasses
 of some route endpoint superclass (by default ~'vroute:endpoint~).
 
+Initially this works with aserve (portable AllegroServe).
