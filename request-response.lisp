@@ -33,6 +33,19 @@
   ((code :initform 405)
    (body :initform "Method not supported")))
 
+;; OK responses
+(defclass created (response)
+  ((code :initform 201)
+   (location :initarg :location :reader location)))
+
+(defclass no-content (response)
+  ((code :initform 204)
+   (body :initform nil)))
+
+
+(defmethod additional-headers ((c created))
+  (append (call-next-method)
+          `((:location . ,(location c)))))
 
 ;; The assumption is that the endpoint hasn't implemented that method (ie there is no defmethod for it)
 (defmethod respond ((e endpoint) method agent)
@@ -60,6 +73,9 @@
 ;; This is just a simple case to make the 
 (defmethod send-response-for-request ((e endpoint) req (response string))
   (send-response-for-request e req (make-instance 'response :body response)))
+
+(defmethod send-response-for-request ((e endpoint) req (response null))
+  (send-response-for-request e req (make-instance 'no-content)))
 
 (defmethod handle-request ((e endpoint))
   (let ((response (handler-case
