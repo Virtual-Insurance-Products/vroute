@@ -9,6 +9,8 @@
    ;; headers...
    ))
 
+(defmethod additional-headers ((r response)) nil)
+
 (defmethod write-response-body-to-stream ((r response) (s stream))
   (write-sequence (body r) s))
 

@@ -61,6 +61,9 @@
                                                                                                   (class-of response)))
                                                                                                 " "))))
                                    
+      (loop for (name . value) in (additional-headers response)
+         do (setf (net.aserve:reply-header-slot-value req name) value))
+
       ;; !!! TODO - handle response headers
       (net.aserve:with-http-body (req ent)
         (write-response-body-to-stream response
